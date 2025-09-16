@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign In / Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #e0e5ec;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #e0e5ec;
+      border-radius: 30px;
+      box-shadow: 8px 8px 16px #babecc, -8px -8px 16px #ffffff;
+      padding: 40px 30px;
+      width: 350px;
+      text-align: center;
+    }
+    .container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .input-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .input-group label {
+      margin-bottom: 5px;
+      color: #666;
+      font-size: 14px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: #e0e5ec;
+      box-shadow: inset 4px 4px 8px #babecc, inset -4px -4px 8px #ffffff;
+      font-size: 16px;
+      outline: none;
+      transition: box-shadow 0.2s;
+    }
+    .input-group input:focus,
+    .input-group input:not(:placeholder-shown) {
+        box-shadow: 0 0 0 2px #a3b1c6;
+    }
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      background: #e0e5ec;
+      box-shadow: 4px 4px 8px #babecc, -4px -4px 8px #ffffff;
+      font-size: 16px;
+      color: #333;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: box-shadow 0.2s, background 0.2s;
+    }
+    .btn:hover {
+      background: #d1d9e6;
+      box-shadow: 2px 2px 4px #babecc, -2px -2px 4px #ffffff;
+      font-size: 18px;
+    }
+    .toggle-link {
+      color: #6c63ff;
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 14px;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .toggle-link:hover {
+      color: #5750d1;
+      transform: scale(1.2);
+      font-size: 18px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 id="form-title">Welcome</h2>
+    <form id="signin-form">
+      <div class="input-group">
+        <label for="signin-email">Email</label>
+        <input type="email" id="signin-email" required placeholder="Enter your email here">
+      </div>
+      <div class="input-group">
+        <label for="signin-password">Password</label>
+        <input type="password" id="signin-password" required placeholder="Enter your password here">
+      </div>
+      <button type="submit" class="btn">Sign In</button>
+      <div>
+        <span>Don't have an account? </span>
+        <span class="toggle-link" onclick="toggleForm()">Sign Up</span>
+      </div>
+    </form>
+    <form id="signup-form" class="hidden">
+        <div class="input-group">
+        <label for="signup-name">Name</label>
+        <input type="text" id="signup-name" required placeholder="Enter your name here">
+      </div>
+        <div class="input-group">
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" required placeholder="Enter your email here">
+      </div>
+      <div class="input-group">
+        <label for="signup-password">Password</label>
+        <input type="password" id="signup-password" required placeholder="Enter your password here">
+      </div>
+      <div class="input-group">
+        <label for="signup-confirm">Confirm Password</label>
+        <input type="password" id="signup-confirm" required placeholder="Confirm your password here">
+      </div>
+      <button type="submit" class="btn">Sign Up</button>
+      <div>
+        <span>Already have an account? </span>
+        <span class="toggle-link" onclick="toggleForm()">Sign In</span>
+      </div>
+    </form>
+  </div>
+  
+</body>
+</html>
+<script>
+  function toggleForm() {
+    const signinForm = document.getElementById('signin-form');
+    const signupForm = document.getElementById('signup-form');
+    const formTitle = document.getElementById('form-title');
+    if (signinForm.classList.contains('hidden')) {
+      signinForm.classList.remove('hidden');
+      signupForm.classList.add('hidden');
+      formTitle.textContent = 'Welcome';
+    } else {
+      signinForm.classList.add('hidden');
+      signupForm.classList.remove('hidden');
+      formTitle.textContent = 'Sign Up';
+    }
+  }
+</script>
