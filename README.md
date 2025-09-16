@@ -11,8 +11,8 @@ well it doesnt work exactly like i thought but we can do a pull request to merge
 1. 	Go to your repository
 2. 	Click the Pull requests tab
 3. 	Click New pull request
-4. 	Set the base branch to your sandbox branch (e.g., )
-5. 	Set the compare branch to 
+4. 	Set the base branch to your sandbox branch (e.g., darrick-sandbox-branch )
+5. 	Set the compare branch to main
 6. 	GitHub will show you the changes that will be merged into your sandbox
 7. 	Click Create pull request
 8. 	Add a title like “Sync with main”
