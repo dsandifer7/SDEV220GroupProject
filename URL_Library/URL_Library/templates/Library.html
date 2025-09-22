@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Library</title>
+</head>
+<body>
+    <h1>Library of Generated QR Codes</h1>
+
+    <ul>
+        {% for qr in qr_codes %}
+            <li>
+                <p><strong>URL:</strong> {{ qr.url }}</p>
+                <p><strong>Created:</strong> {{ qr.created_at }}</p>
+                <img src="{{ qr.image.url }}" alt="QR Code" width="150">
+                <p><a href="{{ qr.image.url }}" download>Download QR Code</a></p>
+            </li>
+            <hr>
+        {% empty %}
+            <li>No QR codes generated yet.</li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="{% url 'generate_qr' %}">Generate a new QR code</a></p>
+</body>
+<style>
+    body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #2980b9;
+}
+
+img {
+    display: block;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+</style>
+
+</html>
