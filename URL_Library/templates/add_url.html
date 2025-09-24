@@ -7,7 +7,7 @@
     <h1>Generate QR Code from URL</h1>
 
     <form method="post">
-        {% csrf_token %} <-- Renders the Django form (URLForm) using {{ form.as_p }} which formats each field as a paragraph.--/>
+        {% csrf_token %} <!-- Renders the Django form (URLForm) using {{ form.as_p }} which formats each field as a paragraph.-->
         {{ form.as_p }}
         <button type="submit">Generate</button>
     </form>
