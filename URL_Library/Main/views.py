@@ -22,7 +22,7 @@ def add_url(request):
             qr_instance.image.save(f'{url[:20]}.png', ContentFile(buffer.getvalue()), save=True)
     else:
         form = URLForm()
-    return render(request, 'qr_app/qr_form.html', {'form': form, 'img_data': img_data})
+    return render(request, 'add_url.html', {'form': form, 'img_data': img_data})
 
 def delete_url(request, pk): ...
 
