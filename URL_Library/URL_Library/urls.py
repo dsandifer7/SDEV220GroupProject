@@ -17,13 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-#from Main import views
+from django.conf import settings
+from django.conf.urls.static import static
+from Main import views
 
-
+# define paths for all pages
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Main.urls')),
-    path('', include(''))
-   
+    path('add/', views.add_url, name='add_url'),
+    #path('delete/', views.delete_url, name='delete_url'),
+    path('library/', views.url_library, name='url_library'),
 ]
-
+## define path for qr images
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

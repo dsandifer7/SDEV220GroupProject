@@ -1,21 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>QR Code Generator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-    <h1>Generate QR Code from URL</h1>
-
-    <form method="post">
-        {% csrf_token %} <!-- Renders the Django form (URLForm) using {{ form.as_p }} which formats each field as a paragraph.-->
-        {{ form.as_p }}
-        <button type="submit">Generate</button>
-    </form>
-
-    {% if img_data %}
-        <h2>Success</h2>
-    {% endif %}
-
-    <p><a href="{% url 'qr_library' %}">View QR Code Library</a></p>
+    <h1>This is my add page</h1>
 </body>
 </html>
