@@ -19,14 +19,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from Main import views
-
+from Main import views as main_views
+from Sign_up import views as signup_views
 # define paths for all pages
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('add/', views.add_url, name='add_url'),
+    path('add/', main_views.add_url, name='add_url'),
     #path('delete/', views.delete_url, name='delete_url'),
-    path('library/', views.url_library, name='url_library'),
+    path('library/', main_views.url_library, name='url_library'),
+    path('login/', signup_views.login, name='login'),
+    path('signup/', signup_views.signup, name='signup'),
 ]
 ## define path for qr images
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
