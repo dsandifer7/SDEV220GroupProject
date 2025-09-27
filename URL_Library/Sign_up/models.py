@@ -2,14 +2,13 @@ from django.db import models
 import bcrypt
 # Create your models here.
 class User(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.EmailField(unique=True)
-    username = models.CharField(max_length=50, unique=True)
-    password = models.CharField(max_length=128)
+    name = models.CharField(max_length=50, null=False)
+    email = models.EmailField(unique=True, null=False)
+    username = models.CharField(max_length=50, unique=True, null=False)
+    password = models.CharField(max_length=128, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    REQUIRED_FIELDS = ['email', 'username', 'name', 'password']
-    USERNAME_FIELD = 'username'
+
 
     def SetPassword(self, raw_password):
         self.password = bcrypt.hashpw(raw_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
@@ -38,8 +37,8 @@ class User(models.Model):
 
 class UserContent(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
-    URL = models.URLField(max_length=200)
+    content = models.TextField(null=True, blank=True)
+    URL = models.URLField(max_length=200, null=True, blank=True)
     QrCode = models.ImageField(upload_to='qrcodes/', null=True, blank=True)
     video = models.FileField(upload_to='videos/', null=True, blank=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
