@@ -21,12 +21,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from Main import views
 
-# define paths for all pages
+# define paths for all pages: this needs some work: copy what i need in class_project
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('add/', views.add_url, name='add_url'),
-    #path('delete/', views.delete_url, name='delete_url'),
-    path('library/', views.url_library, name='url_library'),
+    path('', include('Sign_up.urls')),
+    path('library/', include('Main.urls')),
 ]
 ## define path for qr images
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

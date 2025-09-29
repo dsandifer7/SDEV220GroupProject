@@ -3,7 +3,7 @@ url='https://docs.google.com/document/u/0/'
 name= "Google Docs"
 location= 'URL_Library/media/qr_codes/'
 
-def generate_qr_code(url, name, size=10, border_size=4, color1 = 'black', color2= 'white'):
+def generate_qr_code(url, name, size=6, border_size= 4, color1 = 'black', color2= 'white'):
     qr=qrcode.QRCode(
         version=1,
         box_size=size,
@@ -17,5 +17,5 @@ def generate_qr_code(url, name, size=10, border_size=4, color1 = 'black', color2
     img.save(file_path)
     return file_path
 
-#generate_qr_code(url,name,5,2,'brown','tan')
+#generate_qr_code(url,name)
 #https://copilot.microsoft.com/shares/mYq2DsqmQw77ZwwDdtLgP
