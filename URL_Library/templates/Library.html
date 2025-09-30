@@ -5,34 +5,32 @@
     <meta name="viewport" content="width:h=device-width:h, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style=" margin: 1rem;">
+        <!-- hamburger menu -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Library</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Add</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Delete</a>
-            </li>
+                <!-- buttons that filter all and filter by user all library and personal library -->
+                <li class="nav-item">
+                    <button class="btn nav-link" onclick="filterSelection('all')">My Library</button>
+                </li>
+                <li class="nav-item" id="myBtnContainer">
+                    <button class="btn nav-link" onclick="filterSelection('current_user')">My Library</button> <!-- find way to access current user -->
+                </li>
+                <li class="nav-item">
+                    <a class="btn nav-link" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Add</a>
+                </li>
             </ul>
         </div>
     </nav>
 
-
-    <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-        Link with href
-    </a>
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-        Button with data-bs-target
-    </button>
+    <!-- popout add_url -->
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
@@ -54,38 +52,105 @@
                 </ul>
             </div>
         </div>
-    </div>
-
+    </div> 
+    <!--      -->
 
     <hr>
-    <div class="d-flex flex-wrap justify-content-center">
+
+    <div class="container text-center" style = "margin: auto;">
     {% if library %}
-        {% for i in library %}  
-        <div class="card text-white bg-info" style="padding:2%; margin:2%; width:250px;"> <!--add a tag that is named {user.name} then filter based on that-->
-            <a href="{{i.image_path}}" class="image-container" download>
-                <img src="{{i.image_path}}" alt="{{i.name}} qr" class="rounded mx-auto d-block">
-            </a>
+        {% for i in library %} 
+            {% if forloop.counter0|divisibleby:4%}
+            <!-- start row -->
+                <div class="row">
+            {% endif %}
+
+                    <div class="card text-white bg-info col user.i" style="padding:1% 2% 2%; margin:2%; min-width: 200px; max-width: 200px;">
+                        <div>
+                            <button type="button" class="btn-close float-end" aria-label="Close"></button>
+                        </div>
+                        <a href="{{i.image_path}}" class="image-container" download>
+                            <img src="{{i.image_path}}" alt="{{i.name}} qr" class="rounded mx-auto d-block">
+                        </a>
           
-            <div class="card-body">
-                <!-- <div class="card-text">Click to download</div> -->
-                <h5 class="title">{{i.name}}</h5>
-                <h6 class="card-title" style="font-style: italic; font-size: small;">{{i.created_at}}</h6>
-                <p class="card-text">{{i.description}}</p>
-                <a href="{{i.url}}" target="_blank" class="btn btn-primary">{{i.name}}</a>
-            </div>
-        </div> 
+                        <div class="card-body">
+                            <!-- <div class="card-text">Click to download</div> -->
+                            <h5 class="title">{{i.name}}</h5>
+                            <h6 class="card-title" style="font-style: italic; font-size: small;">{{i.created_at}}</h6>
+                            <p class="card-text">{{i.description}}</p>
+                            <a href="{{i.url}}" target="_blank" class="btn btn-primary">{{i.name}}</a>
+                        </div>
+                    </div>
+
+            <!-- end row -->
+            {% if forloop.counter0|add:'1'|divisibleby:4 or forloop.last %}
+                        <div class="card text-white bg-info col user.i" style=" padding:0px; margin:2%; min-width: 200px; max-width: 200px; min-height: 367.4px;">
+                            <button class="btn" style="width:100%; height: 100%;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                Add
+                            </button>
+                        </div>
+                            
+                    </div>
+            <!-- just add column -->
+            {% endif %}
         {% endfor %}
-    {% else %}
-        <p>No items available</p>
     {% endif %}
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   <!-- script to filter 'My Library' by user class -->
+
+    <script>
+        filterSelection("all")
+        function filterSelection(c) {
+        var x, i;
+        x = document.getElementsByClassName("col");
+        if (c == "all") c = "";
+        for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+        }
+        
+        function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+        }
+        }
+        
+        function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+            arr1.splice(arr1.indexOf(arr2[i]), 1);     
+            }
+        }
+        element.className = arr1.join(" ");
+        }
+        
+        
+        // Add active class to the current button (highlight it)
+        var btnContainer = document.getElementById("myBtnContainer");
+        var btns = btnContainer.getElementsByClassName("btn");
+        for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function(){
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+        }
+    </script>
+    
 </body>
 
+
+
 <style>
+/* for QR image */
 .image-container {
   width: auto;
   height: auto;

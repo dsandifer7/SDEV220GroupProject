@@ -1,4 +1,7 @@
 from django import forms
+from .models import URL
 
-class URLForm(forms.Form):
-    url = forms.URLField(label='Enter a URL', max_length=200)
+class URLForm(forms.ModelForm):
+    class Meta():
+        model = URL
+        fields = ['name','url','description']
