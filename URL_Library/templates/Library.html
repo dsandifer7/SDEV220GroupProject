@@ -20,7 +20,12 @@
                     <button class="btn nav-link" onclick="filterSelection('all')">Library</button>
                 </li>
                 <li class="nav-item" id="myBtnContainer">
-                    <button class="btn nav-link" onclick="filterSelection('{{ currentuser|slugify }}')">My Library</button> <!-- find way to access current user -->
+                    <!-- filter with javascript 
+                    <<button class="btn nav-link" onclick="filterSelection('{{ currentuser|slugify }}')">My Library</button> find way to access current user -->
+                    
+                    <!-- filter with views -->
+                    <a href=" {% url 'myurls_library' %}  " class="btn nav-link" >My Library</a>
+
                 </li>
                 <li class="nav-item">
                     <a class="btn nav-link" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Add</a>
@@ -60,6 +65,9 @@
 
                     <div class="card text-white bg-info col {{ i.user|slugify }}" style="padding:1% 2% 2%; margin:2%; min-width: 200px; max-width: 200px;">
                         <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                            </svg>
                             <button type="button" class="btn-close float-end" aria-label="Close"></button>
                         </div>
                         <a href="{{i.image_path}}" class="image-container" download>
@@ -90,7 +98,7 @@
     {% endif %}
     </div>
 
-   <!-- script to filter 'My Library' by user class -->
+   <!-- Filter with javascript 
 
     <script>
         filterSelection("all")
@@ -137,6 +145,7 @@
         });
         }
     </script>
+    -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

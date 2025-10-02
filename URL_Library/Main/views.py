@@ -22,8 +22,12 @@ def add_url(request):
     return render(request )
 
 
-#def delete_url(request, pk): ...
-
 def url_library(request):
     library = UserContent.objects.all()
     return render(request, 'Library.html',{'library':library})
+
+# send to personal view
+def myurls_library(request):
+    library = UserContent.objects.filter(user = 'maggiekocon')
+    return render(request, 'Library.html',{'library':library})
+
