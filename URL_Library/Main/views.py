@@ -1,7 +1,7 @@
 import qrcode
 from django.shortcuts import render,redirect
 from .forms import URLForm
-from .models import URL
+from Sign_up.models import UserContent
 from .QRcode import generate_qr_code
 
 def add_url(request):
@@ -25,5 +25,5 @@ def add_url(request):
 #def delete_url(request, pk): ...
 
 def url_library(request):
-    library = URL.objects.all()
+    library = UserContent.objects.all()
     return render(request, 'Library.html',{'library':library})

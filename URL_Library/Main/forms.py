@@ -1,7 +1,15 @@
 from django import forms
-from .models import URL
+from Sign_up.models import UserContent
 
 class URLForm(forms.ModelForm):
     class Meta():
-        model = URL
+        model = UserContent
         fields = ['name','url','description']
+        widgets = {
+
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+
+            'url': forms.TextInput(attrs={'class': 'form-control'}),
+
+            'description': forms.Textarea(attrs={'class': 'form-control'})
+        }
