@@ -15,15 +15,10 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <!-- buttons that filter all and filter by user all library and personal library -->
                 <li class="nav-item" id="myBtnContainer">
                     <a href="{% url 'url_library' %}" class="btn nav-link" >Library</a>
                 </li>
                 <li class="nav-item" id="myBtnContainer">
-                    <!-- filter with javascript 
-                    <<button class="btn nav-link" onclick="filterSelection('{{ currentuser|slugify }}')">My Library</button> find way to access current user -->
-                    
-                    <!-- filter with views -->
                     <a href=" {% url 'myurls_library' %}  " class="btn nav-link" >My Library</a>
 
                 </li>
@@ -56,7 +51,7 @@
     <!--      -->
 
     <hr>
-
+    <!-- dynamic library -->
     <div class="container text-center" style = "margin: auto;">
     {% if library %}
         {% for i in library %} 
@@ -67,13 +62,14 @@
 
                     <div class="card text-white bg-info col {{ i.user|slugify }}" style="padding:1% 2% 2%; margin:2%; min-width: 200px; max-width: 200px;">
                         <div>
-                            <button class="float-end bg-info " style="border: none">
+                            <!-- edit button, add view to place edit content in the form -->
+                            <button class="float-end bg-info " style="border: none" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"  class="bi bi-three-dots" viewBox="0 0 16 16">
                                     <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                                 </svg>
                             </button>
-                           
-                            <button type="button" class="btn-close float-start" aria-label="Close"></button>
+                           <!-- delete button -->
+                            <button type="button" class="btn-close float-start" data-bs-toggle="modal" data-bs-target="#exampleModal" aria-label="Close"></button>
                         
                         </div>
                         <a href="{{i.image_path}}" class="image-container" download>
@@ -81,7 +77,6 @@
                         </a>
           
                         <div class="card-body">
-                            <!-- <div class="card-text">Click to download</div> -->
                             <h5 class="title">{{i.name}}</h5>
                             <h6 class="card-title" style="font-style: italic; font-size: small;">{{i.created_at}}</h6>
                             <p class="card-text">{{i.description}}</p>
@@ -103,55 +98,26 @@
         {% endfor %}
     {% endif %}
     </div>
+    <!-- modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                All changes are perminant, are you sure you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> 
+                    <!-- save changes button, add code to run delete_url view -->
+                    <button type="button" class="btn btn-primary">Yes</button> 
+                </div>
+            </div>
+        </div>
+    </div>
 
-   <!-- Filter with javascript 
-
-    <script>
-        filterSelection("all")
-        function filterSelection(c) {
-        var x, i;
-        x = document.getElementsByClassName("col");
-        if (c == "all") c = "";
-        for (i = 0; i < x.length; i++) {
-            w3RemoveClass(x[i], "show");
-            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-        }
-        }
-        
-        function w3AddClass(element, name) {
-        var i, arr1, arr2;
-        arr1 = element.className.split(" ");
-        arr2 = name.split(" ");
-        for (i = 0; i < arr2.length; i++) {
-            if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
-        }
-        }
-        
-        function w3RemoveClass(element, name) {
-        var i, arr1, arr2;
-        arr1 = element.className.split(" ");
-        arr2 = name.split(" ");
-        for (i = 0; i < arr2.length; i++) {
-            while (arr1.indexOf(arr2[i]) > -1) {
-            arr1.splice(arr1.indexOf(arr2[i]), 1);     
-            }
-        }
-        element.className = arr1.join(" ");
-        }
-        
-        
-        // Add active class to the current button (highlight it)
-        var btnContainer = document.getElementById("myBtnContainer");
-        var btns = btnContainer.getElementsByClassName("btn");
-        for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function(){
-            var current = document.getElementsByClassName("active");
-            current[0].className = current[0].className.replace(" active", "");
-            this.className += " active";
-        });
-        }
-    </script>
-    -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
