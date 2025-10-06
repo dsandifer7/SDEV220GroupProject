@@ -36,5 +36,8 @@ def url_library(request):
 # send to personal view
 def myurls_library(request):
     library = UserContent.objects.filter(user = '3') # replace 3 with curent user id
-    return render(request, 'Library.html',{'library':library})
-
+    libraryform = URLForm()
+    return render(request, 'Library.html', {
+        'library': library,
+        'libraryform': libraryform
+    })
