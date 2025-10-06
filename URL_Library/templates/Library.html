@@ -17,7 +17,7 @@
             <ul class="navbar-nav">
                 <!-- buttons that filter all and filter by user all library and personal library -->
                 <li class="nav-item" id="myBtnContainer">
-                    <button class="btn nav-link" onclick="filterSelection('all')">Library</button>
+                    <a href="{% url 'url_library' %}" class="btn nav-link" >Library</a>
                 </li>
                 <li class="nav-item" id="myBtnContainer">
                     <!-- filter with javascript 
@@ -43,9 +43,11 @@
         </div>
         <div class="offcanvas-body">
             <div class="container">
-                <form method="POST" >
+
+
+                <form action= "" method="POST" >
                     {% csrf_token %}
-                    {{ URLform }}
+                    {{libraryform}}
                     <input type="submit" class="btn btn-primary" value="Submit">
                 </form>
             </div>
@@ -65,10 +67,14 @@
 
                     <div class="card text-white bg-info col {{ i.user|slugify }}" style="padding:1% 2% 2%; margin:2%; min-width: 200px; max-width: 200px;">
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                            </svg>
-                            <button type="button" class="btn-close float-end" aria-label="Close"></button>
+                            <button class="float-end bg-info " style="border: none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"  class="bi bi-three-dots" viewBox="0 0 16 16">
+                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                                </svg>
+                            </button>
+                           
+                            <button type="button" class="btn-close float-start" aria-label="Close"></button>
+                        
                         </div>
                         <a href="{{i.image_path}}" class="image-container" download>
                             <img src="{{i.image_path}}" alt="{{i.name}} qr" class="rounded mx-auto d-block">
