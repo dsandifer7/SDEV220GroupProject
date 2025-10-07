@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from Main import views as main_views
@@ -24,13 +24,14 @@ from Sign_up import views as signup_views
 # define paths for all pages
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
+    # main paths
     path('add/', main_views.add_url, name='add_url'),
     path('library/', main_views.url_library, name='url_library'),
+    path('my_library', main_views.myurls_library, name='myurls_library'),
 
 # add path to delete
 # add path edit
-
+    # sign_up paths
     path('login/', signup_views.login, name='login'),
     path('signup/', signup_views.signup, name='signup'),
     path('logout/', signup_views.logout, name='logout'),

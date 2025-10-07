@@ -1,44 +1,48 @@
 import qrcode
-from io import BytesIO
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .forms import URLForm
-from .models import URL
+from Sign_up.models import UserContent
 from .QRcode import generate_qr_code
-#from django.core.files.base import ContentFile
-#import base64
 
 def add_url(request):
     # access form data to generate qr code and save filepath to database
     if request.method == 'POST':
-        data = URLForm(request.POST)
-        url=form['url']
-        url=form['name']
-        file_path = generate_qr_code(data.url,data.name,'URL_Library/media/qr_codes/')
-    else:
-        form = URLForm()
-    # save file_path into DB
-    return render(request)
+        libraryform = URLForm(request.POST)
+        if libraryform.is_valid():
+            object = libraryform.save(commit=False)
+            #object.user = request.user
+            url = object.url 
+            name = object.name
+            object.image_path = generate_qr_code(url, name,'/media/qr_codes/')
+            object.save()
+            return redirect('/library')
+        else:
+            libraryform = URLForm()
 
-#def add_url(request):
-    img_data = None
-    if request.method == 'POST':
-        form = URLForm(request.POST)
-        if form.is_valid():
-            url = form.cleaned_data['url']
-            qr = qrcode.make(url)
-            buffer = BytesIO()
-            qr.save(buffer, format='PNG')
-            img_data = base64.b64encode(buffer.getvalue()).decode()
+    library = UserContent.objects.all() 
+    return render(request, 'Library.html', {
+        'libraryform':libraryform,
+        'library': library,  
+    })
 
-            # Save to database
-            qr_instance = URL(url=url)
-            qr_instance.image.save(f'{url[:20]}.png', ContentFile(buffer.getvalue()), save=True)
-    else:
-        form = URLForm()
-    return render(request, 'add_url.html', {'form': form, 'img_data': img_data})
-
-#def delete_url(request, pk): ...
 
 def url_library(request):
-    library = URL.objects.all()
-    return render(request, 'Library.html',{'library':library})
+    library = UserContent.objects.all()
+    libraryform = URLForm()
+    return render(request, 'Library.html', {
+        'library': library,
+        'libraryform': libraryform
+    })
+# send to personal view
+def myurls_library(request):
+    library = UserContent.objects.filter(user = '3') # replace 3 with curent user id
+    libraryform = URLForm()
+    return render(request, 'Library.html', {
+        'library': library,
+        'libraryform': libraryform
+    })
+
+
+# need a view to update
+
+# need a view to delete

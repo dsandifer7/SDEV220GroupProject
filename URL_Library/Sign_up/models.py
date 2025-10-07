@@ -37,11 +37,10 @@ class User(models.Model):
 
 class UserContent(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField(null=True, blank=True)
-    URL = models.URLField(max_length=200, null=True, blank=True)
-    QrCode = models.ImageField(upload_to='qrcodes/', null=True, blank=True)
-    video = models.FileField(upload_to='videos/', null=True, blank=True)
-    image = models.ImageField(upload_to='images/', null=True, blank=True)
+    name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    url = models.URLField(max_length=200)
+    image_path = models.CharField(max_length= 100, null = True, blank=True) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
