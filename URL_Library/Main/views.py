@@ -10,7 +10,7 @@ def add_url(request):
         libraryform = URLForm(request.POST)
         if libraryform.is_valid():
             object = libraryform.save(commit=False)
-            object.user = request.user
+            #object.user = request.user
             url = object.url 
             name = object.name
             object.image_path = generate_qr_code(url, name,'URL_Library/media/qr_codes/')
@@ -41,3 +41,6 @@ def myurls_library(request):
         'library': library,
         'libraryform': libraryform
     })
+
+#def delete()
+    # copy from other project
