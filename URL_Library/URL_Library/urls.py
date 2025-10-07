@@ -24,9 +24,13 @@ from Sign_up import views as signup_views
 # define paths for all pages
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
     path('add/', main_views.add_url, name='add_url'),
-    #path('delete/', views.delete_url, name='delete_url'),
     path('library/', main_views.url_library, name='url_library'),
+
+# add path to delete
+# add path edit
+
     path('login/', signup_views.login, name='login'),
     path('signup/', signup_views.signup, name='signup'),
     path('logout/', signup_views.logout, name='logout'),
