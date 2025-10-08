@@ -54,10 +54,13 @@ def myurls_library(request):
 def update_url(request, pk):    #uses the primary key that gets made automajically when a new url is added to pull that specific record
     saved_url = UserContent.objects.get(id=pk)
     user_id = request.session.get('user_id')
+    
     if not user_id or saved_url.user.id != int(user_id):         #only the user that created the url can edit it
-        return redirect('/library')  
+        return redirect('/library')
+     
     if request.method == 'POST':
         libraryform = URLForm(request.POST, instance=saved_url)    # this will prefill the form with the existing data from the database
+        
         if libraryform.is_valid():
             object = libraryform.save(commit=False)
             url = object.url 
@@ -69,7 +72,7 @@ def update_url(request, pk):    #uses the primary key that gets made automajical
         libraryform = URLForm(instance=saved_url)
 
     if user_id:
-        library = UserContent.objects.filter(user=user_id)  # Show only their URLs
+        library = UserContent.objects.filter(user=int(user_id))  # Show only users URLs
     else:
         library = UserContent.objects.all()  # Show all URLs if not logged in
     
@@ -77,7 +80,7 @@ def update_url(request, pk):    #uses the primary key that gets made automajical
         'libraryform': libraryform,
         'library': library,
         'edit_mode': True,
-        'saved_url': saved_url,
+        'edit_id': pk,
     })
 
 
