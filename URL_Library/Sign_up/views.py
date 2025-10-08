@@ -23,6 +23,7 @@ def signup(request):
         if password == confirm_password:
             user = User(name=name, email=email, username=username)
             user.SetPassword(password)
+            user.save()
             
             return redirect("login")
         else:
