@@ -1,10 +1,14 @@
+import qrcode
 from django.shortcuts import render,redirect
 from .forms import URLForm
 from Sign_up.models import UserContent, User
 from .QRcode import generate_qr_code
+from django.conf import settings
+import os
 
 def add_url(request):
     # access form data to generate qr code and save filepath to database
+    libraryform = URLForm()
     if request.method == 'POST':
         libraryform = URLForm(request.POST)
         if libraryform.is_valid():
@@ -15,7 +19,7 @@ def add_url(request):
                 
             url = object.url 
             name = object.name
-            object.image_path = generate_qr_code(url, name, '/media/qr_codes/')
+            object.image_path = generate_qr_code(url, name)
             object.save()
             return redirect('/library')
     else:
@@ -27,7 +31,7 @@ def add_url(request):
         'library': library,  
     })
 
-
+#Emmanuel says we dont need this anymore i am not sure why we dont i will ask him tonight
 def url_library(request):
     library = UserContent.objects.all()
     libraryform = URLForm()
@@ -65,7 +69,7 @@ def update_url(request, pk):    #uses the primary key that gets made automajical
             object = libraryform.save(commit=False)
             url = object.url 
             name = object.name
-            object.image_path = generate_qr_code(url, name, '/media/qr_codes/')
+            object.image_path = generate_qr_code(url, name)
             object.save()
             return redirect('/library')
     else:
