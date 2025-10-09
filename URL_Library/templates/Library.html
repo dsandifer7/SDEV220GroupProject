@@ -7,30 +7,42 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style=" margin: 1rem;">
+    <header class="bg-dark text-white py-3 px-4">
+        <h2 class="m-0">URL Library</h2>
+    </header>
+
+    <!-- navbar -->
+    <nav class = "navbar navbar-light bg-light navbar-expand-lg" style=" margin: 1rem;">
         <!-- hamburger menu -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class= "container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item" id="myBtnContainer">
-                    <a href="{% url 'url_library' %}" class="btn nav-link" >Library</a>
-                </li>
-                <li class="nav-item" id="myBtnContainer">
-                    <a href=" {% url 'myurls_library' %}  " class="btn nav-link" >My Library</a>
+            <div class="sticky-wrapper d-flex justify-content-end">
+                <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+            </div>
 
-                </li>
-                <li class="nav-item">
-                    <a class="btn nav-link" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Add</a>
-                </li>
-                <li>
-                    <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto ">
+                    <li class="nav-item" id="myBtnContainer">
+                        <a href="{% url 'url_library' %}" class="btn nav-link p-x py-2" >Library</a>
+                    </li>
+                    <li class="nav-item" id="myBtnContainer">
+                        <a href=" {% url 'myurls_library' %}  " class="btn nav-link p-x py-2" >My Library</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn nav-link p-x py-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Add</a>
+                    </li>
+                </ul>
+            </div>
+            
         </div>
     </nav>
+
+
+
 
     <!-- popout add_url -->
 
@@ -55,72 +67,65 @@
 
     <hr>
     <!-- dynamic library -->
-    <div class="container text-center" style = "margin: auto;">
-    {% if library %}
-        {% for i in library %} 
-            {% if forloop.counter0|divisibleby:4%}
-            <!-- start row -->
-                <div class="row">
-            {% endif %}
+    <div class="row" style = "margin: 6%;">
+    {% for i in library %} 
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4 d-flex" style="max-width: 250px;">
+            <div class="card text-white bg-info" style="width:100%; height: 100%; min-height: 370px; padding:1% 2% 2%; margin:2%;">
+                <div>
+                    <a class="float-start bg-info" style="border: none" href="{% url 'update_url' i.id %}" role="button" aria-controls="offcanvasExample">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"  class="bi bi-three-dots" viewBox="0 0 16 16">
+                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                        </svg>
+                    </a>
+                    <a type="button" class="btn-close float-end" data-bs-toggle="modal" data-bs-target="#exampleModal{{i.id}}" aria-label="Close"></a>
+                </div>
+                <a href="{{i.image_path}}" class="image-container" download>
+                    <img src="{{i.image_path}}" alt="{{i.name}} qr" class="rounded mx-auto d-block">
+                </a>
+                <div class="card-body">
+                    <h5 class="title">{{i.name}}</h5>
+                    <h6 class="card-title" style="font-style: italic; font-size: small;">{{i.created_at}}</h6>
+                    <p class="card-text">{{i.description}}</p>
+                    <a href="{{i.url}}" target="_blank" class="btn btn-primary">{{i.name}}</a>
+                </div>
+            </div>
+        </div>
 
-                    <div class="card text-white bg-info col {{ i.user|slugify }}" style="padding:1% 2% 2%; margin:2%; min-width: 200px; max-width: 200px;">
-                        <div>
-<!-- edit button should use update_url from view to put edit content in the form -->
-                            <a class="float-start bg-info " style="border: none"  href="{% url 'update_url' i.id %}" role="button" aria-controls="offcanvasExample">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"  class="bi bi-three-dots" viewBox="0 0 16 16">
-                                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                                </svg>
-                            </a>
-                           <!-- delete button -->
-                            <a type="button" class="btn-close float-end" data-bs-toggle="modal" data-bs-target="#exampleModal" aria-label="Close"></a>
-                        
-                        </div>
-                        <a href="{{i.image_path}}" class="image-container" download>
-                            <img src="{{i.image_path}}" alt="{{i.name}} qr" class="rounded mx-auto d-block">
-                        </a>
-          
-                        <div class="card-body">
-                            <h5 class="title">{{i.name}}</h5>
-                            <h6 class="card-title" style="font-style: italic; font-size: small;">{{i.created_at}}</h6>
-                            <p class="card-text">{{i.description}}</p>
-                            <a href="{{i.url}}" target="_blank" class="btn btn-primary">{{i.name}}</a>
-                        </div>
+        <!-- Unique modal per item -->
+        <div class="modal fade" id="exampleModal{{i.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{i.id}}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Item</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Delete Item</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                All changes are perminant, are you sure you want to delete?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> 
+                    <div class="modal-body">
+                    All changes are perminant, are you sure you want to delete?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> 
 <!-- yes button will run delete_url from main views -->
-                                    <a href="{% url 'delete_url' i.id %}" class="btn btn-primary">Yes</a> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <a href="{% url 'delete_url' i.id %}" class="btn btn-primary">Yes</a> 
+                    </div> 
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 
-            <!-- end row -->
-            {% if forloop.counter0|add:'1'|divisibleby:4 or forloop.last %}
-                        <div class="card text-white bg-info col {{ i.user|slugify }}" style=" padding:0px; margin:2%; min-width: 200px; max-width: 200px; min-height: 367.4px;">
-                            <button class="btn" style="width:100%; height: 100%;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                                Add
-                            </button>
-                        </div>
-                            
-                    </div>
-            <!-- just add column -->
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    </div>
+    <!-- Add card -->
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4 d-flex" style="max-width: 250px;">
+            <div class="card text-white bg-info" style="width: 100%; height: 100%; padding:1% 2% 2%; min-height: 370px; margin:2%;">
+                <button class="btn" style="width:100%; height:100%;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    Add
+                </button>
+            </div>
+        </div>
+    </div>    
+        
+
+
     <!-- modal  put in for loop-->
+     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -148,8 +153,38 @@
   height: 100%;
   object-fit: contain;
 }
+
+/* Ensure nav links inside collapse have padding and a pointer cursor */
+.navbar-nav .nav-link {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover/focus effect */
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+  background-color: #e9ecef; /* light grey bg on hover */
+  color: rgb(13 202 240); /* Bootstrap primary blue on hover */
+  border-radius: 0.25rem;
+}
+
+/* On small screens (collapsed menu), make sure links fill width */
+@media (max-width: 991.98px) {
+  .navbar-nav .nav-link {
+    width: 100%;
+  }
+}
+
+.navbar-toggler {
+  box-shadow: none !important;  /* Remove any box-shadow */
+}
+
+
 </style>
 </html>
 
+
+   
 
    
