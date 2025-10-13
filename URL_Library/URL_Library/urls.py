@@ -31,8 +31,7 @@ urlpatterns = [
     path('update/<int:pk>/', main_views.update_url, name='update_url'),
     path('delete/<int:pk>/', main_views.delete_url, name='delete_url'),
 
-# add path to delete
-# add path edit
+
     # sign_up paths
     path('login/', signup_views.login, name='login'),
     path('signup/', signup_views.signup, name='signup'),
