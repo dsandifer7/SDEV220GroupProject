@@ -19,7 +19,7 @@ def add_url(request):
                 
             url = object.url 
             name = object.name
-            object.image_path = generate_qr_code(url, name)
+            object.image_path = generate_qr_code(url, name) #generates qrcode
             object.save()
             return redirect('/library')
     else:
@@ -39,6 +39,7 @@ def url_library(request):
         'library': library,
         'libraryform': libraryform
     })
+
 # send to personal view
 def myurls_library(request):
     user_id = request.session.get('user_id')
@@ -54,7 +55,7 @@ def myurls_library(request):
     })
 
 
-# need a view to update
+# Update view
 def update_url(request, pk):    #uses the primary key that gets made automajically when a new url is added to pull that specific record
     saved_url = UserContent.objects.get(id=pk)
     user_id = request.session.get('user_id')
@@ -88,7 +89,7 @@ def update_url(request, pk):    #uses the primary key that gets made automajical
     })
 
 
-# need a view to delete
+# delete view
 def delete_url(request, pk):    #uses the primary key to find the record to delete
     saved_url = UserContent.objects.get(id=pk)
     user_id = request.session.get('user_id')

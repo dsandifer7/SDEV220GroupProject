@@ -5,6 +5,7 @@ class URLForm(forms.ModelForm):
     class Meta:
         model = UserContent
         fields = ['name','url','description']
+        # styles for form
         widgets = {
 
             'name': forms.TextInput(attrs={'class': 'form-control'}),
