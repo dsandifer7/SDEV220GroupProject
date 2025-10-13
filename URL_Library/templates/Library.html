@@ -1,46 +1,6 @@
 {% extends "master.html" %}
 {% block body %}    
-<body>
-    <header class="bg-dark text-white py-3 px-4">
-        <h2 class="m-0">URL Library</h2>
-    </header>
-
-    <!-- navbar -->
-    <nav class = "navbar navbar-light bg-light navbar-expand-lg" style=" margin: 1rem;">
-        <div class= "container-fluid">
-            <!-- hamburger menu  icon-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- logout button
-             stays in top right corner when other nav links claps into th hanmburger menu -->
-            <div class="sticky-wrapper d-flex justify-content-end">
-                <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
-            </div>
-
-            <!-- elements in hamburger menu -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto ">
-                    <li class="nav-item" id="myBtnContainer">
-                        <a href="{% url 'url_library' %}" class="btn nav-link p-x py-2" >Library</a>
-                    </li>
-                    <li class="nav-item" id="myBtnContainer">
-                        <a href=" {% url 'myurls_library' %}  " class="btn nav-link p-x py-2">My Library</a>
-
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn nav-link p-x py-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Add</a>
-                    </li>
-                </ul>
-            </div>  
-        </div>
-    </nav>
-
-
-
-
     <!-- popout add url form -->
-
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Add url item </h5>
@@ -127,7 +87,6 @@
     });
     </script>
     {% endif %}
-</body>
 {% endblock %}
 
 
