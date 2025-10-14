@@ -43,15 +43,25 @@ def url_library(request):
 # send to personal view
 def myurls_library(request):
     user_id = request.session.get('user_id')
-    if user_id:
-        library = UserContent.objects.filter(user=user_id)  #using the current user from the session with user_id to populate the page
-    else:
-        library = UserContent.objects.none()  # If no user is logged in, will show an empty list 
-    
+    library = UserContent.objects.filter(user=user_id) if user_id else UserContent.objects.none()
+
+    edit_mode = False
+    edit_id = request.GET.get('edit')
     libraryform = URLForm()
+
+    if edit_id:
+        try:
+            saved_url = UserContent.objects.get(id=edit_id, user=user_id)
+            libraryform = URLForm(instance=saved_url)
+            edit_mode = True
+        except UserContent.DoesNotExist:
+            pass  # fallback to blank form if object not found or user mismatch
+
     return render(request, 'Library.html', {
         'library': library,
-        'libraryform': libraryform
+        'libraryform': libraryform,
+        'edit_mode': edit_mode,
+        'edit_id': edit_id,
     })
 
 
@@ -72,7 +82,7 @@ def update_url(request, pk):    #uses the primary key that gets made automajical
             name = object.name
             object.image_path = generate_qr_code(url, name)
             object.save()
-            return redirect('/library')
+            return redirect('/my_library')
     else:
         libraryform = URLForm(instance=saved_url)
 
