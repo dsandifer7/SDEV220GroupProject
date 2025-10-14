@@ -46,3 +46,12 @@ def myurls_library(request):
 # need a view to update
 
 # need a view to delete
+def delete_url(request, pk):
+    if request.method == 'POST':
+        item = UserContent.objects.filter(id=pk, user=request.user.id).first()
+
+        if item:
+            item.delete()
+        return redirect('myurls_library') 
+    else:
+        return redirect('myurls_library')

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "Main",
     'Sign_up',
+    'about',
 ]
 
 MEDIA_URL = '/media/'
