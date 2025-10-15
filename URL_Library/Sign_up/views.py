@@ -43,7 +43,7 @@ def login(request):
 
         if user and user.CheckPassword(password):
             request.session["user_id"] = user.id
-            return redirect("url_library")  ##redirect to the main app once login is successful here is where the login connects to the main app
+            return redirect("how_it_works")  ##redirect to the main app once login is successful here is where the login connects to the main app
         else:
             return render(request, "MK_sample login_signup.html", {"error": "Invalid credentials"})
 

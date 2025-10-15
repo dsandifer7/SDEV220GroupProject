@@ -21,7 +21,7 @@ def add_url(request):
             name = object.name
             object.image_path = generate_qr_code(url, name) #generates qrcode
             object.save()
-            return redirect('/library')
+            return redirect('/my_library')
     else:
         libraryform = URLForm()
 
@@ -107,4 +107,8 @@ def delete_url(request, pk):    #uses the primary key to find the record to dele
     if not user_id or saved_url.user.id != int(user_id):         #only the user that created the url can delete it
         return redirect('/library')
     saved_url.delete()
-    return redirect('/library')
+    return redirect('/my_library')
+
+# about page view
+def about_view(request):
+    return render(request, "how_it_works.html")

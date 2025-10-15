@@ -30,6 +30,7 @@ urlpatterns = [
     path('my_library', main_views.myurls_library, name='myurls_library'),
     path('update/<int:pk>/', main_views.update_url, name='update_url'),
     path('delete/<int:pk>/', main_views.delete_url, name='delete_url'),
+    path('about', main_views.about_view, name='how_it_works'),
 
 
     # sign_up paths
@@ -38,6 +39,7 @@ urlpatterns = [
     path('logout/', signup_views.logout, name='logout'),
     path('', signup_views.login, name='home'),  # Redirect root URL to login page
     
+
 ]
 ## define path for qr images
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
