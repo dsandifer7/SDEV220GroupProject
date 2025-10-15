@@ -21,3 +21,74 @@ This pulls the latest updates from  into your sandbox branch, keeping your work 
 
 
 I added a login page html file in my sandbox if you want to check it out its nothing much just a sign in sign up form with some css and javascript 
+
+
+# WebSaver User Manual
+
+## Introduction
+
+WebSaver is a web application for saving, managing, and quickly accessing your favorite links, with automatic QR code generation for each link.
+
+## Key Features
+
+- User Registration & Login
+- About/How It Works landing page after login
+- Personal Library of saved links
+- Add, edit, and delete links
+- QR codes for each saved link
+- Secure logout
+
+## How to Use WebSaver
+
+### 1. Registration and Login
+
+After signing up or logging in, you are taken to the About/How It Works page.
+
+
+---
+
+### 2. About / How It Works Page
+
+This page explains the app and includes a "Go to Library" button as well as a list of other quick actions.
+
+
+---
+
+### 3. Go to Library
+
+Click "Go to Library" to see all your personal links or a community library if you have not added any.
+
+
+---
+
+### 4. Add a New Link
+
+Click on either the **Add New URL** button in the library, or the **+ Add** button in the navigation bar to fill in the "Add Link" form and submit new URLs.
+
+
+---
+
+### 5. Edit or Delete a Link
+
+Use the edit/delete icons on any link ( … ) ( X ) to update or remove it. Only the owner of a link can edit or delete it. The Edit (…) button will open a prepopulated form for modifying an entry.
+
+
+---
+
+### 6. Log Out
+
+Use the Logout button located in the navigation bar to end your session.
+
+
+---
+
+## Support
+
+For help, check the About page or contact the SDEV220 Group Project Team.
+
+## Credits
+
+Developed by the SDEV220 Group Project Team.  
+Maggie Kocon  
+Dawa Sherpa  
+Darrick Sandifer
